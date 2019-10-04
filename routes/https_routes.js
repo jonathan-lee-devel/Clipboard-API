@@ -3,7 +3,7 @@
 module.exports = function(app) {
   var customerController = require('../controllers/customerController');
 
-  // todoList Routes
+  // Customer Routes
   app.route('/customers')
     .get(customerController.list_all_customers)
     .post(customerController.create_a_customer);
