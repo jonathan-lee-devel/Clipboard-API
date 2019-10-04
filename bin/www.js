@@ -27,7 +27,7 @@ const load_passphrase = fs.readFileSync('./secrets/passphrase.txt', 'utf-8', fun
 const https_options = {
   key: fs.readFileSync('./secrets/key.pem'),
   cert: fs.readFileSync('./secrets/cert.pem'),
-  passphrase: load_passphrase
+  passphrase: load_passphrase.trim()
 };
 const https_server = https.createServer(https_options, https_app);
 
