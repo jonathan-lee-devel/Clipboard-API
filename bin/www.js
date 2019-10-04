@@ -3,7 +3,7 @@
 const https_app = require('../app/https_app');
 const http_app = require('../app/http_app');
 
-var debug = require('debug')('untitled:server');
+const debug = require('debug')('untitled:server');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
@@ -17,29 +17,35 @@ https_app.set('port', https_port);
 http_app.set('port', http_port);
 
 /**
- * Create HTTPS and HTTP redirect server
+ * Create HTTPS Server
  */
 const load_passphrase = fs.readFileSync('./secrets/passphrase.txt', 'utf-8', function(err, data) {
   if( err ) throw err;
   else
   return data.toString();
 });
-
 const https_options = {
   key: fs.readFileSync('./secrets/key.pem'),
   cert: fs.readFileSync('./secrets/cert.pem'),
   passphrase: load_passphrase
 };
 const https_server = https.createServer(https_options, https_app);
+
+/**
+ * Create HTTP Redirect Server
+ */
 const http_server = http.createServer(http_app);
 
 /**
- * Listen on provided port, on all network interfaces.
+ * Configure HTTPS Server to Listen on HTTPS PORT
  */
 https_server.listen(https_port);
 https_server.on('error', https_onError);
 https_server.on('listening', https_onListening);
 
+/**
+ * Configure HTTP Redirect Server to Listen on HTTP PORT
+ */
 http_server.listen(http_port);
 http_server.on('error', http_onError);
 http_server.on('listening', http_onListening);
@@ -47,7 +53,6 @@ http_server.on('listening', http_onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -101,7 +106,7 @@ function https_onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  debug('HTTPS_Listening on ' + bind);
 }
 
 /**
@@ -141,5 +146,5 @@ function http_onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  debug('HTTP_Listening on ' + bind);
 }
