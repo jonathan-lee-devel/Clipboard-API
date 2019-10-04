@@ -7,7 +7,6 @@ https_app.use(express.json());
 https_app.use(express.urlencoded({ extended: false }));
 
 var routes = require('../routes/https_routes');
-// https_app.use('*', indexRouter);
 routes(https_app);
 
 module.exports = https_app;

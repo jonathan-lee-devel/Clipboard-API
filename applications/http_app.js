@@ -7,7 +7,6 @@ http_app.use(express.json());
 http_app.use(express.urlencoded({ extended: false }));
 
 var routes = require('../routes/http_routes');
-// https_app.use('*', indexRouter);
 routes(http_app);
 
 module.exports = http_app;
