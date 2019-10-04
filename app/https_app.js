@@ -9,7 +9,7 @@ https_app.use(express.json());
 https_app.use(express.urlencoded({ extended: false }));
 
 /* Route Handlers */
-const indexRouter = require('./routes/index');
+const indexRouter = require('../routes/index');
 // Will redirect all paths to indexRouter for now
 https_app.use('*', indexRouter);
 

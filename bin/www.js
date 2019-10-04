@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const https_app = require('../https_app');
-const http_app = require('../http_app');
+const https_app = require('../app/https_app');
+const http_app = require('../app/http_app');
 
 var debug = require('debug')('untitled:server');
 const https = require('https');
@@ -19,10 +19,16 @@ http_app.set('port', http_port);
 /**
  * Create HTTPS and HTTP redirect server
  */
+const load_passphrase = fs.readFileSync('./secrets/passphrase.txt', 'utf-8', function(err, data) {
+  if( err ) throw err;
+  else
+  return data.toString();
+});
+
 const https_options = {
   key: fs.readFileSync('./secrets/key.pem'),
   cert: fs.readFileSync('./secrets/cert.pem'),
-  passphrase: 'helloworld'
+  passphrase: load_passphrase
 };
 const https_server = https.createServer(https_options, https_app);
 const http_server = http.createServer(http_app);
