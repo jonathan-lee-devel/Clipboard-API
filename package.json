@@ -4,7 +4,7 @@
   "description": "RESTful API for Clipboard application",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,8 @@
   "homepage": "https://github.com/jonathan-lee-devel/Clipboard-API#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1",
     "nodemon": "^1.19.3"
   }
 }

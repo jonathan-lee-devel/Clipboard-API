@@ -1,24 +1,29 @@
-const app = require('express')();
-const httpApp = require('express')();
+const express = require('express');
+const https_app = express();
+const http_app = express();
+const logger = require('morgan');
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
 
-// HTTP Redirect Server
+https_app.use(logger('dev'));
+https_app.use(express.json());
+https_app.use(express.urlencoded({ extended: false }));
+
+const HTTPS_PORT = 8080;
+
+/* Route Handlers */
+const indexRouter = require('./routes/index');
+// Will redirect all paths to indexRouter for now
+https_app.use('*', indexRouter);
+
+/* HTTP Redirect Server */
 const HTTP_PORT = 3000;
-const http = require('http');
-httpApp.get('*', (req, res) => {
-	res.redirect('https://' + req.hostname + ':8080' + req.url);
+http_app.get('*', (req, res) => {
+	res.redirect('https://' + req.hostname + ':' + HTTPS_PORT + req.url);
 })
-http.createServer(httpApp).listen(HTTP_PORT);
+http.createServer(http_app).listen(HTTP_PORT);
 
-
-const PORT = 8080;
-
-// GET home route
-app.get('/', (req, res) => {
-		res.writeHead(200);
-        res.end('Sent from Clipboard API v1 - ' + new Date());
-});
 
 const options = {
         key: fs.readFileSync('./secrets/key.pem'),
@@ -26,4 +31,7 @@ const options = {
 		passphrase: 'helloworld'
 };
 
-https.createServer(options, app).listen(PORT);
+https.createServer(options, https_app).listen(HTTPS_PORT);
+
+module.exports = https_app;
+module.exports = http_app;
