@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const https_app = require('../app/https_app');
-const http_app = require('../app/http_app');
+const https_app = require('../applications/https_app');
+const http_app = require('../applications/http_app');
 
 const debug = require('debug')('untitled:server');
 const https = require('https');

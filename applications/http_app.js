@@ -1,8 +1,6 @@
 const express = require('express');
 const http_app = express();
 const logger = require('morgan');
-const http = require('http');
-const fs = require('fs');
 
 http_app.use(logger('dev'));
 http_app.use(express.json());
