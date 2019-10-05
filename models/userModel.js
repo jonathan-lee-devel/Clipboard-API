@@ -5,7 +5,7 @@ const sql = require('../util/mysql-connection');
 const User = function (user) {
     this.email = user.email;
     this.username = user.username;
-    this.password_hash = user.password_hash;
+    this.password = user.password;
 };
 
 User.getAllUsers = (result) => {
@@ -34,7 +34,7 @@ User.registerUser = (user, result) =>  {
 };
 
 User.verifyUser = (user, result) => {
-    sql.query("SELECT * FROM users WHERE (email=? OR username=?) AND password_hash=?", [user.email, user.username, user.password_hash], (err, res) => {
+    sql.query("SELECT * FROM users WHERE (email=? OR username=?) AND password_hash=?", [user.email, user.username, user.password], (err, res) => {
         if (err) {
             console.log("Error: ", err);
             result(err, null);

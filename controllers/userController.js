@@ -19,7 +19,7 @@ exports.register_a_user = (req, res) => {
     var new_user = new User(req.body);
   
     // Handles null error
-    if (!new_user.username || !new_user.email || !new_user.password_hash) {
+    if (!new_user.username || !new_user.email || !new_user.password) {
       res.status(400).send({ error: true, message: 'Must provide username, e-mail address, & password' });
     }
     else {
@@ -38,7 +38,7 @@ exports.verify_user = (req, res) => {
   var check_user = new User(req.body);
 
   // Handles null error
-  if ( (!check_user.username && !check_user.email) || !check_user.password_hash ) {
+  if ( (!check_user.username && !check_user.email) || !check_user.password ) {
     res.status(400).send({ error: true, message: 'Invalid user' });
   }
   else {
