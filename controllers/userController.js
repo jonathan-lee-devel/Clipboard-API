@@ -2,6 +2,19 @@
 
 var User = require('../models/userModel');
 
+exports.list_all_users = function (req, res) {
+  User.getAllUsers( function (err, user) {
+
+    if (err) {
+      res.send(err);
+    }
+    else {
+      console.log('res', user);
+      res.send(user);
+    }
+  });
+};
+
 exports.register_a_user = function (req, res) {
     var new_user = new User(req.body);
   

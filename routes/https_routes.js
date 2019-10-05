@@ -10,16 +10,14 @@ module.exports = function(app) {
     res.send('Sent from Clipboard API v1 - ' + new Date());
   });
 
-  // User Routes
+  /* User Routes */
   app.route('/users')
-    .get( (req, res) => {
-      res.send('Sent from Clipboard API v1 - ' + new Date());
-    });
+    .get(userController.list_all_users);
 
   app.route('/users/register')
     .post(userController.register_a_user);
 
-  // Customer Routes
+  /* Customer Routes */
   app.route('/customers')
     .get(customerController.list_all_customers)
     .post(customerController.create_a_customer);

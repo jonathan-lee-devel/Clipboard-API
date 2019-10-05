@@ -2,13 +2,26 @@
 const sql = require('../util/mysql-connection');
 
 // User object constructor
-const User = function(user){
+const User = (user) => {
     this.email = user.email;
     this.username = user.username;
     this.password_hash = user.password_hash;
 };
 
-User.registerUser = function (user, result)  {
+User.getAllUsers = (result) => {
+    sql.query("SELECT * FROM users", (err, res) => {
+        if (err) {
+            console.log("Error: ", err);
+            result(null, err);
+        }
+        else {
+            console.log("Users: ", res);
+            result(null, res);
+        }
+    });
+};
+
+User.registerUser = (user, result) =>  {
     sql.query("INSERT INTO users set ?", user, function (err, res) {
         if (err) {
             console.log("Error: ", err);
