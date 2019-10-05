@@ -4,8 +4,7 @@
   "description": "RESTful API for Clipboard application",
   "main": "./bin/www.js",
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./bin/www",
   },
   "repository": {
     "type": "git",
