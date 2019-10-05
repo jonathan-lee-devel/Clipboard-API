@@ -4,7 +4,7 @@
   "description": "RESTful API for Clipboard application",
   "main": "./bin/www.js",
   "scripts": {
-    "dev": "nodemon ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "repository": {
     "type": "git",
