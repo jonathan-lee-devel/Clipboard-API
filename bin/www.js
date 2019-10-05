@@ -6,28 +6,23 @@ const http_app = require('../applications/http_app');
 const debug = require('debug')('untitled:server');
 const https = require('https');
 const http = require('http');
-const fs = require('fs');
+const secretLoader = require('../util/secret-loader');
 
 /**
  * Get port from environment and store in Express.
  */
-const https_port = normalizePort(process.env.PORT || '8080');
-const http_port = normalizePort(process.env.PORT || '3000');
+const https_port = normalizePort(process.env.HTTPS_PORT || '8080');
+const http_port = normalizePort(process.env.HTTP_PORT || '3000');
 https_app.set('port', https_port);
 http_app.set('port', http_port);
 
 /**
  * Create HTTPS Server
  */
-const load_passphrase = fs.readFileSync('./secrets/passphrase.txt', 'utf-8', function(err, data) {
-  if( err ) throw err;
-  else
-  return data.toString();
-});
 const https_options = {
-  key: fs.readFileSync('./secrets/key.pem'),
-  cert: fs.readFileSync('./secrets/cert.pem'),
-  passphrase: load_passphrase.trim()
+  key: secretLoader.loadSecret('key.pem'),
+  cert: secretLoader.loadSecret('cert.pem'),
+  passphrase: secretLoader.loadSecret('passphrase.txt')
 };
 const https_server = https.createServer(https_options, https_app);
 

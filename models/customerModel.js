@@ -14,6 +14,9 @@ Customer.createCustomer = function (customer, result) {
             console.log("Error: ", err);
             result(err, null);
         }
+        else {
+            result(null, res);
+        }
     })
 };
 
