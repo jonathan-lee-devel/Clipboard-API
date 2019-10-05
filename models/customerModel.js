@@ -2,7 +2,7 @@
 const sql = require('../util/mysql-connection');
 
 // Customer object constructor
-const Customer = (customer) => {
+const Customer = function(customer) {
     this.name = customer.name;
     this.address = customer.address;
     this.created_at = new Date();

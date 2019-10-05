@@ -17,6 +17,9 @@ module.exports = function(app) {
   app.route('/users/register')
     .post(userController.register_a_user);
 
+  app.route('/users/login')
+    .post(userController.verify_user);
+
   /* Customer Routes */
   app.route('/customers')
     .get(customerController.list_all_customers)
