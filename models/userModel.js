@@ -22,7 +22,7 @@ User.getAllUsers = (result) => {
 };
 
 User.registerUser = (user, result) =>  {
-    sql.query("INSERT INTO users set ?", user, function (err, res) {
+    sql.query("INSERT INTO users set ?", user, (err, res) => {
         if (err) {
             console.log("Error: ", err);
             result(err, null);

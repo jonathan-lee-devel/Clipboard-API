@@ -2,8 +2,8 @@
 
 var User = require('../models/userModel');
 
-exports.list_all_users = function (req, res) {
-  User.getAllUsers( function (err, user) {
+exports.list_all_users = (req, res) => {
+  User.getAllUsers( (err, user) => {
 
     if (err) {
       res.send(err);
@@ -15,7 +15,7 @@ exports.list_all_users = function (req, res) {
   });
 };
 
-exports.register_a_user = function (req, res) {
+exports.register_a_user = (req, res) => {
     var new_user = new User(req.body);
   
     // Handles null error
@@ -23,7 +23,7 @@ exports.register_a_user = function (req, res) {
       res.status(400).send({ error: true, message: 'Must provide username, e-mail address, & password' });
     }
     else {
-      User.registerUser(new_user, function (err, user) {
+      User.registerUser(new_user, (err, user) => {
         if (err) {
           res.send(err);
         }

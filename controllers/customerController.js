@@ -2,8 +2,8 @@
 
 var Customer = require('../models/customerModel');
 
-exports.list_all_customers = function (req, res) {
-  Customer.getAllCustomers( function (err, customer) {
+exports.list_all_customers = (req, res) => {
+  Customer.getAllCustomers( (err, customer) => {
 
     if (err) {
       res.send(err);
@@ -15,7 +15,7 @@ exports.list_all_customers = function (req, res) {
   });
 };
 
-exports.create_a_customer = function (req, res) {
+exports.create_a_customer = (req, res) => {
   var new_customer = new Customer(req.body);
 
   // Handles null error
@@ -23,7 +23,7 @@ exports.create_a_customer = function (req, res) {
     res.status(400).send({ error: true, message: 'Must provide cusomer name & address' });
   }
   else {
-    Customer.createCustomer(new_customer, function (err, customer) {
+    Customer.createCustomer(new_customer, (err, customer) => {
       if (err) {
         res.send(err);
       }
@@ -34,8 +34,8 @@ exports.create_a_customer = function (req, res) {
   }
 };
 
-exports.read_a_customer = function (req, res) {
-  Customer.getCustomerById(req.params.customerId, function (err, customer) {
+exports.read_a_customer = (req, res) => {
+  Customer.getCustomerById(req.params.customerId, (err, customer) => {
     if (err) {
       res.send(err);
     }
@@ -45,8 +45,8 @@ exports.read_a_customer = function (req, res) {
   });
 };
 
-exports.update_a_customer = function (req, res) {
-  Customer.updateCustomerById(req.params.customerId, new Customer(req.body), function (err, customer) {
+exports.update_a_customer = (req, res) => {
+  Customer.updateCustomerById(req.params.customerId, new Customer(req.body), (err, customer) => {
     if (err) {
       res.send(err);
     }
@@ -56,8 +56,8 @@ exports.update_a_customer = function (req, res) {
   });
 };
 
-exports.delete_a_customer = function (req, res) {
-  Customer.remove(req.params.customerId, function (err, customer) {
+exports.delete_a_customer = (req, res) => {
+  Customer.remove(req.params.customerId, (err, customer) => {
     if (err) {
       res.send(err);
     }

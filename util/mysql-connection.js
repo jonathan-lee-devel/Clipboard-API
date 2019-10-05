@@ -16,7 +16,7 @@ var connection = mysql.createConnection({
     database : load_database
 });
 
-connection.connect(function(err) {
+connection.connect( (err) => {
     if (err) throw err;
 });
 
