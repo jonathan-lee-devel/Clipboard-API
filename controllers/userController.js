@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 exports.list_all_users = (req, res) => {
   User.getAllUsers( (err, user) => {
@@ -16,20 +17,32 @@ exports.list_all_users = (req, res) => {
 };
 
 exports.register_a_user = (req, res) => {
-    var new_user = new User(req.body);
+    const new_user = new User(req.body);
   
     // Handles null error
     if (!new_user.username || !new_user.email || !new_user.password) {
       res.status(400).send({ error: true, message: 'Must provide username, e-mail address, & password' });
     }
     else {
-      User.registerUser(new_user, (err, user) => {
-        if (err) {
-          res.send(err);
-        }
-        else {
-          res.json(user);
-        }
+      // Hash password
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(new_user.password, salt, (err, hash) => {
+          if (err) {
+            throw err;
+          }
+          else {
+            // Set password to hash result before passing to model
+            new_user.password = hash;
+            User.registerUser(new_user, (err, user) => {
+              if (err) {
+                res.send(err);
+              }
+              else {
+                res.json(user);
+              }
+            });
+          }
+        });
       });
     }
 };
@@ -61,13 +74,25 @@ exports.verify_user = (req, res) => {
     res.status(400).send({ error: true, message: 'Invalid user' });
   }
   else {
-    User.verifyUser(check_user, (err, user) => {
-      if (err) {
-        res.send(err);
-      }
-      else {
-        res.json(user);
-      }
+    // Hash password
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(check_user.password, salt, (err, hash) => {
+        if (err) {
+          throw err;
+        }
+        else {
+          // Set password to hash result before passing to model
+          check_user.password = hash;
+          User.verifyUser(check_user, (err, user) => {
+            if (err) {
+              res.send(err);
+            }
+            else {
+              res.json(user);
+            }
+          });
+        }
+      });
     });
   }
 };

@@ -33,6 +33,18 @@ User.findUserByEmail = (email, result) => {
     });
 };
 
+User.findUserByUsername = (username, result) => {
+    sql.query("SELECT * FROM users WHERE username = ?", username, (err, res) => {
+        if (err) {
+            console.log("Error: ", err);
+            result(err, null);
+        }
+        else {
+            result(null, res);
+        }
+    });
+};
+
 User.registerUser = (user, result) =>  {
     sql.query("INSERT INTO users set ?", user, (err, res) => {
         if (err) {
@@ -46,12 +58,13 @@ User.registerUser = (user, result) =>  {
 };
 
 User.verifyUser = (user, result) => {
-    sql.query("SELECT * FROM users WHERE (email=? OR username=?) AND password_hash=?", [user.email, user.username, user.password], (err, res) => {
+    sql.query("SELECT * FROM users WHERE (email = ? OR username = ?) AND password = ?", [user.email, user.username, user.password], (err, res) => {
         if (err) {
             console.log("Error: ", err);
             result(err, null);
         }
         else {
+            console.log(res);
             result(null, res);
         }
     });
