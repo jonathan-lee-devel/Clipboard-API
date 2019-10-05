@@ -5,7 +5,6 @@ var Customer = require('../models/customerModel');
 exports.list_all_customers = function (req, res) {
   Customer.getAllCustomers( function (err, customer) {
 
-    console.log('Controller');
     if (err) {
       res.send(err);
     }
