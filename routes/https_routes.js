@@ -14,6 +14,9 @@ module.exports = function(app) {
   app.route('/users')
     .get(userController.list_all_users);
 
+  app.route('/users/find/:userEmail')
+    .get(userController.find_a_user_by_email);
+
   app.route('/users/register')
     .post(userController.register_a_user);
 

@@ -34,6 +34,25 @@ exports.register_a_user = (req, res) => {
     }
 };
 
+exports.find_a_user_by_email = (req, res) => {
+  const find_user_email = req.params.userEmail;
+
+  // Handles null error
+  if (!find_user_email) {
+    res.status(400).send({ error: true, message: 'Must provide e-mail' });
+  }
+  else {
+    User.findUserByEmail(find_user_email, (err, user) => {
+      if (err) {
+        res.send(err);
+      }
+      else {
+        res.json(user);
+      }
+    });
+  }
+};
+
 exports.verify_user = (req, res) => {
   var check_user = new User(req.body);
 
