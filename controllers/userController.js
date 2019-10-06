@@ -76,10 +76,17 @@ exports.verify_user = (req, res) => {
           res.send(err);
         } else {
           // On successful return of user
-          let hash = user[0].password;
-          bcrypt.compare(check_user.password, hash).then(function(result) {
-            res.send(result);
-          });
+          if (user.length != 1) {
+            // On empty or bad result set
+            res
+              .status(400)
+              .send({ error: true, message: "Problem with database search" });
+          } else {
+            let hash = user[0].password;
+            bcrypt.compare(check_user.password, hash).then(function(result) {
+              res.send(result);
+            });
+          }
         }
       });
     } else {
@@ -89,10 +96,17 @@ exports.verify_user = (req, res) => {
           res.send(err);
         } else {
           // On successful return of user
-          let hash = user[0].password;
-          bcrypt.compare(check_user.password, hash).then(function(result) {
-            res.send(result);
-          });
+          if (user.length != 1) {
+            // On empty or bad result set
+            res
+              .status(400)
+              .send({ error: true, message: "Problem with database search" });
+          } else {
+            let hash = user[0].password;
+            bcrypt.compare(check_user.password, hash).then(function(result) {
+              res.send(result);
+            });
+          }
         }
       });
     }
