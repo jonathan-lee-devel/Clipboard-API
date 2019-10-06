@@ -66,47 +66,40 @@ exports.find_a_user_by_email = (req, res) => {
   }
 };
 
-async function getUserProvidedPartialLogin(user) {
-  if (!user.email) {// If e-mail address is not given, search by username
-    User.findUserByUsername(user.username, (err, result) => {
-      if (err) throw err;
-      console.log('@ASYNC: ', result);
-    })
-    .then( result => {
-      return result;
-    }).catch( err => console.log(err) );
-  } else {// Otherwise search by e-mail address
-    User.findUserByEmail(user.email, (err, result) => {
-      if (err) throw err;
-      console.log('@ASYNC_EMAIL: ', result);
-    })
-    .then( result => {
-      return result;
-    }).catch( err => console.log(err) );
-  }
-}
-
-exports.verify_user = (req, res) => {
+exports.verify_user = async (req, res) => {
   const check_user = new User(req.body);
-  let hash = null;
 
   // Handles null error
   if ( (!check_user.username && !check_user.email) || !check_user.password ) {
     res.status(400).send({ error: true, message: 'Invalid user' });
   }
-  else {
-    getUserProvidedPartialLogin(check_user)
-    .then( (result) => {
-      hash = result[0].password;
-      console.log('@verify_user: ', hash);
-      console.log('@compare: ', check_user.password, hash);
-      bcrypt.compare(check_user.password, hash)
-      .then(result => {
-        console.log(res);
-        res.send(result);
-      })
-      .catch(err => console.error(err.message));
 
-    }).catch( err => console.log(err) );
+  else {
+    if (check_user.email) {// If an e-mail is provided, use for search
+      User.findUserByEmail(check_user.email, (err, user) => {
+        if (err) {
+          res.send(err);
+        }
+        else {// On successful return of user
+          let hash = user[0].password;
+          bcrypt.compare(check_user.password, hash).then(function(result) {
+            res.send(result);
+          });
+        }
+      });
+    }
+    else {// Otherwise resort to username for search
+      User.findUserByUsername(check_user.username, (err, user) => {
+        if (err) {
+          res.send(err);
+        }
+        else {// On successful return of user
+          let hash = user[0].password;
+          bcrypt.compare(check_user.password, hash).then(function(result) {
+            res.send(result);
+          });
+        }
+      });
+    }
   }
 };
