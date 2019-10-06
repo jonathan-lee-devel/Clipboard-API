@@ -19,12 +19,10 @@ exports.register_a_user = (req, res) => {
 
   // Handles null error
   if (!new_user.username || !new_user.email || !new_user.password) {
-    res
-      .status(400)
-      .send({
-        error: true,
-        message: "Must provide username, e-mail address, & password"
-      });
+    res.status(400).send({
+      error: true,
+      message: "Must provide username, e-mail address, & password"
+    });
   } else {
     // Hash password
     bcrypt.genSalt(10, (err, salt) => {
@@ -64,7 +62,7 @@ exports.find_a_user_by_email = (req, res) => {
   }
 };
 
-exports.verify_user = async (req, res) => {
+exports.verify_user = (req, res) => {
   const check_user = new User(req.body);
 
   // Handles null error
