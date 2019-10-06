@@ -1,4 +1,4 @@
-"user strict";
+"use strict";
 const sql = require("../util/mysql-connection");
 
 // Customer object constructor

@@ -1,4 +1,4 @@
-"user strict";
+"use strict";
 
 const mysql = require("mysql");
 const secretLoader = require("./secret-loader");

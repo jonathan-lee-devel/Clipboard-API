@@ -1,3 +1,5 @@
+"use strict";
+
 const express = require("express");
 const http_app = express();
 const logger = require("morgan");

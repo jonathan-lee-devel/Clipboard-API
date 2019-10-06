@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+"use strict";
 
 const https_app = require("../applications/https_app");
 const http_app = require("../applications/http_app");
