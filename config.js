@@ -1,8 +1,8 @@
 /**
  * config.js
  * 
- * Responsible for loading configuration for the application, mainly ENV,
- * providing a schema and validation for said configuration,
+ * Responsible for loading configuration for the application,
+ * providing a schema and validation for said configuration, validating configuration input,
  * and making the necessary information available throughout the rest of the application.
  */
 
@@ -50,6 +50,6 @@ const config = convict({
 
 const env = config.get('env');
 config.loadFile(`./config/${env}.json`);// Loads and validates appropriate configuration file
-config.validate({ allowed: 'struct' });
+config.validate({ allowed: 'strict' });
 
 module.exports = config.getProperties();
