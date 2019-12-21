@@ -7,6 +7,10 @@ const UserModel = function(user) {
   this.password = user.password;
 };
 
+UserModel.validate = (user) => {
+  return (user.email && user.username && user.password);
+}
+
 UserModel.get_all_users = result => {
   sql.query("SELECT * FROM users", (err, res) => {
     if (err) {

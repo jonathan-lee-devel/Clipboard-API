@@ -7,6 +7,10 @@ const CustomerModel = function(customer) {
   this.created_at = new Date();
 };
 
+CustomerModel.validate = (customer) => {
+  return (customer.name && customer.address);
+}
+
 CustomerModel.create_customer = (customer, result) => {
   sql.query("INSERT INTO customers set ?", customer, (err, res) => {
     if (err) {

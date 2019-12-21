@@ -15,7 +15,7 @@ exports.create_customer = (req, res) => {
   var new_customer = new CustomerModel(req.body);
 
   // Handles null error
-  if (!new_customer.name || !new_customer.address) {
+  if (!CustomerModel.validate(new_customer)) {
     res
       .status(400)
       .send({ error: true, message: "Must provide cusomer name & address" });

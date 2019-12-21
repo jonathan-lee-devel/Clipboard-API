@@ -16,7 +16,7 @@ exports.register_user = (req, res) => {
   const new_user = new UserModel(req.body);
 
   // Handles null error
-  if (!new_user.username || !new_user.email || !new_user.password) {
+  if (!UserModel.validate(new_user)) {
     res.status(400).send({
       error: true,
       message: "Must provide username, e-mail address, & password"
