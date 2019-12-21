@@ -1,4 +1,4 @@
-var CustomerModel = require("../models/customer_model");
+const CustomerModel = require("../models/customer_model");
 
 exports.list_all_customers = (req, res) => {
   CustomerModel.get_all_customers((err, customer) => {

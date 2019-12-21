@@ -1,4 +1,4 @@
-var UserModel = require("../models/user_model");
+const UserModel = require("../models/user_model");
 const bcrypt = require("bcrypt");
 
 exports.list_all_users = (req, res) => {
