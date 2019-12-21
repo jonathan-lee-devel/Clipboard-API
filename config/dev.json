@@ -1,0 +1,6 @@
+{
+    "dev_app_port" : 3000,
+    "dev_db_host" : "localhost",
+    "dev_db_port" : 27017,
+    "dev_db_name" : "db"
+}

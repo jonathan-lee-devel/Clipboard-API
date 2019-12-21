@@ -93,32 +93,8 @@ const config = convict({
     }
 });
 
-const dev = {
-    app: {
-        port: parseInt( process.env.DEV_APP_PORT ) || 3000
-    },
-    db: {
-        host: process.env.DEV_DB_HOST || Defaults.DB_HOST,
-        port: process.env.DEV_DB_PORT || Defaults.DB_PORT,
-        name: process.env.DEV_DB_NAME || process.env.NODE_ENV
-    }
-};
+const env = config.get('env');
+config.loadFile(`./config/${env}.json`);
+config.validate({ allowed: 'struct' });
 
-const test = {
-    app: {
-        port: parseInt( process.env.TEST_APP_PORT ) || 3000
-    },
-    db: {
-        host: process.env.TEST_DB_HOST || Defaults.DB_HOST,
-        port: parseInt( process.env.TEST_DB_PORT) || Defaults.DB_PORT,
-        name: process.env.TEST_DB_NAME || process.env.NODE_ENV
-    }
-};
-
-const config = {
-    prod,
-    dev,
-    test
-};
-
-module.exports = config[env];
+module.exports = config.getProperties();
