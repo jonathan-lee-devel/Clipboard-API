@@ -2,8 +2,10 @@
   "name": "clipboard-api",
   "version": "1.0.0",
   "description": "RESTful API for Clipboard application",
-  "main": "main.js",
+  "main": "./bin/www.js",
   "scripts": {
+    "prod": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,8 +23,19 @@
   },
   "homepage": "https://github.com/jonathan-lee-devel/Clipboard-API#readme",
   "dependencies": {
+    "bcrypt": "^3.0.7",
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
     "convict": "^5.2.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
