@@ -2,6 +2,7 @@
  * config.js
  * 
  * Responsible for loading configuration for the application, mainly ENV,
+ * providing a schema and validation for said configuration,
  * and making the necessary information available throughout the rest of the application.
  */
 
@@ -9,6 +10,7 @@ const env = process.env.NODE_ENV;
 require('dotenv').config();
 const convict = require('convict');
 
+/** CONFIGURATION SCHEMA */
 const config = convict({
     env: {
         format: ['prod', 'dev', 'test'],
@@ -17,84 +19,37 @@ const config = convict({
         env: 'NODE_ENV'
     },
 
-    /** PRODUCTION CONFIGURATION */
-    prod_app_port: {
+    app_port: {
         format: Number,
         default: 8080,
-        arg: 'prod-app-port',
-        env: 'PROD_APP_PORT'
-    },
-    prod_db_host: {
-        format: String,
-        default: 'localhost',
-        env: 'PROD_DB_HOST'
-    },
-    prod_db_port: {
-        format: Number,
-        default: 27017,
-        arg: 'prod-db-port',
-        env: 'PROD_DB_PORT'
-    },
-    prod_db_name: {
-        format: String,
-        default: 'db',
-        arg: 'prod-db-name',
-        env: 'PROD_DB_NAME'
+        arg: 'app-port',
+        env: 'APP_PORT'
     },
 
-    /** DEVELOPMENT CONFIGURATION */
-    dev_app_port: {
-        format: Number,
-        default: 8080,
-        arg: 'dev-app-port',
-        env: 'DEV_APP_PORT'
-    },
-    dev_db_host: {
+    db_host: {
         format: String,
         default: 'localhost',
-        env: 'DEV_DB_HOST'
-    },
-    dev_db_port: {
-        format: Number,
-        default: 27017,
-        arg: 'dev-db-port',
-        env: 'DEV_DB_PORT'
-    },
-    dev_db_name: {
-        format: String,
-        default: 'db',
-        arg: 'dev-db-name',
-        env: 'DEV_DB_NAME'
+        env: 'DB_HOST'
     },
 
-    /** TEST CONFIGURATION */
-    test_app_port: {
-        format: Number,
-        default: 8080,
-        arg: 'test-app-port',
-        env: 'TEST_APP_PORT'
-    },
-    test_db_host: {
-        format: String,
-        default: 'localhost',
-        env: 'TEST_DB_HOST'
-    },
-    test_db_port: {
+    db_port: {
         format: Number,
         default: 27017,
-        arg: 'test-db-port',
-        env: 'TEST_DB_PORT'
+        arg: 'db-port',
+        env: 'DB_PORT'
     },
-    test_db_name: {
+
+    db_name: {
         format: String,
         default: 'db',
-        arg: 'test-db-name',
-        env: 'TEST_DB_NAME'
+        arg: 'db-name',
+        env: 'DB_NAME'
     }
+
 });
 
 const env = config.get('env');
-config.loadFile(`./config/${env}.json`);
+config.loadFile(`./config/${env}.json`);// Loads and validates appropriate configuration file
 config.validate({ allowed: 'struct' });
 
 module.exports = config.getProperties();
