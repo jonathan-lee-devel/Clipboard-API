@@ -1,0 +1,23 @@
+{
+  "name": "clipboard-api",
+  "version": "1.0.0",
+  "description": "RESTful API for Clipboard application",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jonathan-lee-devel/Clipboard-API.git"
+  },
+  "keywords": [
+    "Clipboard",
+    "API"
+  ],
+  "author": "jonathan.lee.devel@gmail.com",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/jonathan-lee-devel/Clipboard-API/issues"
+  },
+  "homepage": "https://github.com/jonathan-lee-devel/Clipboard-API#readme"
+}
