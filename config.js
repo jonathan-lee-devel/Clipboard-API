@@ -2,8 +2,7 @@
  * config.js
  * 
  * Responsible for loading configuration for the application, mainly ENV,
- * and making the necessary information available wherever required throughout
- * the rest of the application.
+ * and making the necessary information available throughout the rest of the application.
  */
 
 const env = process.env.NODE_ENV;
