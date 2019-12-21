@@ -54,7 +54,7 @@ exports.update_customer = (req, res) => {
   );
 };
 
-exports.delete_a_customer = (req, res) => {
+exports.delete_customer = (req, res) => {
   CustomerModel.remove(req.params.customerId, (err, customer) => {
     if (err) {
       res.send(err);
