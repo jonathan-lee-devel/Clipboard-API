@@ -15,15 +15,15 @@ const http_redirect_port = normalizePort(process.env.HTTP_PORT || "3000");
 https_app.set("port", https_port);
 http_redirect_app.set("port", http_redirect_port);
 
-// /**
-//  * Create HTTPS Server
-//  */
-// const https_options = {
-//   key: ...,
-//   cert: ...,
-//   passphrase: ...
-// };
-// const https_server = https.createServer(https_options, https_app);
+/**
+ * Create HTTPS Server
+ */
+const https_options = {
+  key: process.env.HTTPS_SSL_KEY, 
+  cert: process.env.HTTPS_SSL_CERT,
+  passphrase: process.env.HTTPS_SSL_PASSPHRASE
+};
+const https_server = https.createServer(https_options, https_app);
 
 /**
  * Create HTTP Redirect Server
