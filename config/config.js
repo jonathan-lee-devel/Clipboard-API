@@ -49,7 +49,7 @@ const config = convict({
 });
 
 const env = config.get('env');
-config.loadFile(`./config/${env}.json`);// Loads and validates appropriate configuration file
+config.loadFile(`./configs/${env}.json`);// Loads and validates appropriate configuration file
 config.validate({ allowed: 'strict' });
 
 module.exports = config.getProperties();

@@ -43,6 +43,38 @@ exports.register_user = (req, res) => {
   }
 };
 
+exports.register_user = async (req, res) => {
+  const new_user = new UserModel(req.body);
+
+  try {
+    const hashed_password = await bcrypt.hash(req.body.password, 10);
+    // Password can now safely be stored in database
+  } catch {
+    res.send("Unable to register user with given details");
+  }
+};
+
+exports.login_user = (req, res) => {
+  const attempt_user = new UserModel(req.body);
+  UserModel.validate(attempt_user);
+
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.send("Login failure");
+    }
+
+    req.logIn(user, err => {
+      if (err) {
+        return next(err);
+      }
+      return res.send("Login success");
+    });
+  });
+};
+
 exports.find_user_by_email = (req, res) => {
   const find_user_email = req.params.userEmail;
 

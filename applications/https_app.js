@@ -2,6 +2,7 @@ const express = require("express");
 const https_app = express();
 const logger = require("morgan");
 const session = require("express-session");
+const passport = require("passport");
 
 https_app.use(logger("dev"));
 https_app.set("trust proxy", 1);
@@ -14,7 +15,10 @@ https_app.use(
   })
 );
 https_app.use(express.json());
+// In order to access request parameters in POST requests
 https_app.use(express.urlencoded({ extended: false }));
+https_app.use(passport.initialize());
+https_app.use(passport.session());
 
 // Import and set routers appropriately
 const https_index_router = require('../routers/https/https_index_router');
