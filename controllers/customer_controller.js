@@ -1,1 +1,0 @@
-const CustomerModel = require("../models/customer_model");
