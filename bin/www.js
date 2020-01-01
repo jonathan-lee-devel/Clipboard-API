@@ -7,11 +7,11 @@
  */
 
 /* IMPORTS */
-require('../config/config');
-const fs = require('fs');
+require("../config/config");
+const fs = require("fs");
 const http = require("http");
 const https = require("https");
-const debug = require('debug')('test:server');
+const debug = require("debug")("test:server");
 const https_app = require("../applications/https_app");
 const http_redirect_app = require("../applications/http_redirect_app");
 
@@ -22,8 +22,8 @@ https_app.set("port", https_port);
 
 // Configure SSL
 const https_options = {
-  key: fs.readFileSync(process.env.HTTPS_SSL_KEY, 'utf8'),
-  cert: fs.readFileSync(process.env.HTTPS_SSL_CERT, 'utf8'),
+  key: fs.readFileSync(process.env.HTTPS_SSL_KEY, "utf8"),
+  cert: fs.readFileSync(process.env.HTTPS_SSL_CERT, "utf8"),
   passphrase: process.env.HTTPS_SSL_PASSPHRASE
 };
 
