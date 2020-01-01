@@ -25,7 +25,9 @@ https_app.use(express.urlencoded({ extended: false }));
 
 // Import and set routers appropriately
 const https_index_router = require('../routers/https/https_index_router');
+const https_user_router = require('../routers/https/https_user_router');
 
+https_app.use('/users', https_user_router);
 https_app.use('/', https_index_router);
 
 module.exports = https_app;
