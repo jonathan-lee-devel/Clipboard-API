@@ -7,7 +7,13 @@
 const express = require("express");
 const logger = require("morgan");
 const session = require("express-session");
+const passport = require("passport");
 const https_app = express();
+
+// Passport configuration
+require("../config/auth/passport.config")(passport);
+
+// TODO DB configuration
 
 // Express application configuration
 https_app.use(logger("dev"));
@@ -24,6 +30,8 @@ https_app.use(
     }
   })
 );
+https_app.use(passport.initialize());
+https_app.use(passport.session());
 https_app.use(express.json());
 https_app.use(express.urlencoded({ extended: false }));
 
