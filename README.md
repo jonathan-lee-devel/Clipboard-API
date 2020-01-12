@@ -1,2 +1,2 @@
 # Clipboard-API
-RESTful API for Clipboard application
+REST API for Clipboard application
